@@ -1,5 +1,4 @@
 import { galleryItems } from './gallery-items.js';
-import * as basicLightbox from '../node_modules/basiclightbox/src/scripts/main.js';
 
 const gallery = document.querySelector('.gallery');
 
@@ -22,14 +21,16 @@ galleryItems.map(image => {
 gallery.addEventListener('click', e => {
   e.preventDefault();
   const item = e.target;
+
+  if (item.tagName !== 'IMG') {
+    return;
+  };
   const instance = basicLightbox.create(
     `
     <img src="${item.getAttribute('data-source')}">
 `);
 
-  if (item.tagName !== 'IMG') {
-    return;
-  };
+
 
   window.addEventListener('keydown', e => {
     if (e.key !== 'Escape') {
